@@ -4,14 +4,20 @@ Vue.component('card', {
     <div class="card">
       <div class="card-body">
         <h3 class="card-title">
-          {{title ||  'Vuejs fundamentals'}}
+          {{title}}
         </h3>
         <div class="card-text">
-          {{ content || 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora maiores, sunt facilis omnis ipsum hic, temporibus commodi eius animi atque culpa iste molestias quaerat ipsa! Dolores dolore voluptas labore cum!' }}
+          {{ content}}
         </div>
+        <button @click="deleteArticle" class="btn btn-danger btn-sm">Delete Me</button>
       </div>
     </div>
-    `
+  `,
+  methods :{
+    deleteArticle(){
+      this.$emit('delete-article', this.title);
+    }
+  }
   })
   
   new Vue({
@@ -27,5 +33,10 @@ Vue.component('card', {
           title: '1914 translation by H. Rackham',
           content: 'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give.'
       }]
-    }
+    },
+    methods: {
+      removeArticle(articleTitle) {
+        this.articles = this.articles.filter(article => article.title !== articleTitle)
+      }
+  }
   })
