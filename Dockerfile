@@ -1,8 +1,9 @@
-FROM nginx
-# VOLUME /usr/share/nginx/html
-COPY container-resources/nginx.conf               /etc/nginx/nginx.conf
-COPY container-resources/esteban-martini.com.conf /etc/nginx/sites-available/esteban-martini.com.conf
-COPY container-resources/security.conf           /etc/nginx/nginxconfig.io/security.conf
-
-RUN service nginx restart
-EXPOSE 80
+FROM node:lts-alpine
+#USER node
+# RUN chmod 755 /usr/local/bin
+RUN npm install -g @vue/cli
+#ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
+WORKDIR /home/node/app
+RUN npm install
+#ADD ./ /home/node/app
+EXPOSE 8080

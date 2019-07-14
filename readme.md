@@ -15,7 +15,9 @@ the steps for that:
     ```
 
 2. run the container:
-
+    
+    _yet I don't know how to mount the current folder as a volume in the docker file_
+    
     ```
-    docker run --rm -d -p 80:80/tcp -v $../udemy-vue-course/:/usr/share/nginx/html intro-vue-udemy:latest
+    docker run --rm -it -d -p 80:8080 -v /.../udemy-vue-course/:/home/node/app  intro-vue-udemy-ch3:latest
     ```
