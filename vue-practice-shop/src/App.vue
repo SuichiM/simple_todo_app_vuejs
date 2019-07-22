@@ -1,25 +1,32 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <Navvar/>
+
+    <div class="container">
+
+      <router-view></router-view>
+
+    </div>
+        
   </div>
 </template>
 
 <script>
+import Navvar from "@/components/Navvar.vue";
 export default {
   name: 'app',
   components: {
-    
+    Navvar
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  font-family: 'Poppins', sans-serif;
+  border-radius: 0 !important;
+}
+#body {
+    color: #2c3e50;
 }
 </style>
