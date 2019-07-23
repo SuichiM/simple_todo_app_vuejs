@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="form-group text-center">
-                    <button class="btn btn-primary form-control">Log In</button>
+                    <button @click="logIn" class="btn btn-primary form-control">Log In</button>
                     </div>
                 </div>
             </div>
@@ -25,3 +25,18 @@
 
     </div>
 </template>
+<script>
+export default {
+    data(){
+        return {
+
+        }
+    },
+    methods:{
+        logIn(){
+            this.$router.push('Home');
+        }
+    }
+
+}
+</script>
