@@ -20,7 +20,6 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item" v-if="!authUser">
-            >
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
 
@@ -49,7 +48,7 @@ export default {
   },
   computed: {
     authUser() {
-      return this.$root.auth.user;
+      return this.$root.auth;
     }
   }
 }

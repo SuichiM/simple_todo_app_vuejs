@@ -7,15 +7,27 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-            <input v-model="name" type="text" placeholder="Name" class="form-control" />
+            <input v-bind:class="{ 'is-invalid': errors.name, 'is-valid': !errors.name && this.submitted }" 
+                  v-model="name" type="text" placeholder="Name" class="form-control">
+            <div class="errors" v-if="errors.name">
+              <small class="text-danger">{{ errors.name.join(', ') }}</small>
+            </div>
+
           </div>
 
           <div class="form-group">
-            <input v-model="email" type="text" placeholder="Email" class="form-control" />
+            <input v-bind:class="{ 'is-invalid': errors.email, 'is-valid': !errors.email && this.submitted }" v-model="email" type="text" placeholder="Email" class="form-control">
+              <div class="errors" v-if="errors.email">
+                <small class="text-danger">{{ errors.email.join(', ') }}</small>
+            </div>
           </div>
 
           <div class="form-group">
-            <input v-model="password" type="password" placeholder="Password" class="form-control" />
+          
+           <input v-bind:class="{ 'is-invalid': errors.password, 'is-valid': !errors.password && this.submitted }" v-model="password" type="password" placeholder="Password" class="form-control">
+            <div class="errors" v-if="errors.password">
+              <small class="text-danger">{{ errors.password.join(', ') }}</small>
+            </div>
           </div>
 
           <div class="form-group text-center">
@@ -35,27 +47,31 @@ export default {
     return {
       name: "",
       email: "",
-      password: ""
+      password: "",
+      errors: {},
+      submitted: false
     };
   },
   methods: {
     
     registerUser() {
-    
-      Axios.post("https://react-blog-api.bahdcasts.com/api/auth/register",  {
+      // http(s)://5d3a5824fa091c00144708ed.mockapi.io/api/:endpoint
+      Axios.post("https://5d3a5824fa091c00144708ed.mockapi.io/api/register",  {
         name: this.name,
         email: this.email,
         password: this.password
       })
         .then((response) => {
-          const { data } = response.data;
+          const { data } = response;
+          
           localStorage.setItem('auth', JSON.stringify(data))
           this.$root.auth = data;
 
           this.$router.push('home');
         })
         .catch(({ response }) => {
-          console.log(response);
+          this.submitted = true;
+          this.errors = response.data;
         });
 
     }

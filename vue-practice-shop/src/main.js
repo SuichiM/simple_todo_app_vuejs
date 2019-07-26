@@ -9,7 +9,7 @@ const authData = localStorage.getItem("auth");
 new Vue({
   router,
   data:{
-    auth: authData ? JSON.parse(authData) : {}
+    auth: authData ? JSON.parse(authData) : null
   },
   render: h => h(App)
 }).$mount('#app')
