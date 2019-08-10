@@ -30,9 +30,10 @@
             </div>
           </div>
 
-          <div class="form-group text-center">
-            <button @click="registerUser" class="btn btn-primary form-control">Sign Up</button>
-          </div>
+          <button @click="registerUser()" :disabled="loading" class="btn form-control btn-success">
+            <i class="fas fa-spin fa-spinner" v-if="loading"></i>
+            {{ loading ? '' : 'Signup' }}
+          </button>
         </div>
       </div>
     </div>
@@ -49,29 +50,56 @@ export default {
       email: "",
       password: "",
       errors: {},
-      submitted: false
+      submitted: false,
+      loading: false
     };
   },
   methods: {
-    
+    fakePost(url, data){
+      return new Promise((resolve, reject)=>{
+        let errors = {data:{}};
+
+        if(!data.name)
+          errors.data.name = ['The name must be valid.']
+        if(!data.email)
+          errors.data.email = ['The email must be valid.']
+        if(!data.password)
+          errors.data.password = ['The password must be valid.']
+
+        if(Object.keys(errors.data).length > 0 )
+          return reject (errors);
+
+         setTimeout(()=>{ resolve( {data:{
+                  user: 'SuichiM',
+                  name: 'Suichi',
+                  token: 'aADALskdjASdasldj124ALASDJlas'
+                  }})
+                }, Math.random()*5)
+        
+      });
+    },
+
     registerUser() {
+      this.loading = true;
+
       // http(s)://5d3a5824fa091c00144708ed.mockapi.io/api/:endpoint
-      Axios.post("https://5d3a5824fa091c00144708ed.mockapi.io/api/register",  {
+      //Axios.post("https://5d3a5824fa091c00144708ed.mockapi.io/api/register",  {
+      this.fakePost('https://afake.url',{
         name: this.name,
         email: this.email,
         password: this.password
       })
-        .then((response) => {
-          const { data } = response;
-          
+        .then(({data}) => {
+          this.loading = false;
           localStorage.setItem('auth', JSON.stringify(data))
           this.$root.auth = data;
 
           this.$router.push('home');
         })
-        .catch(({ response }) => {
+        .catch(({ data }) => {
+          this.loading = false;
           this.submitted = true;
-          this.errors = response.data;
+          this.errors = data;
         });
 
     }
