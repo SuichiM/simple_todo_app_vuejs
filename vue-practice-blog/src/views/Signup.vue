@@ -83,23 +83,24 @@ export default {
       this.loading = true;
 
       // http(s)://5d3a5824fa091c00144708ed.mockapi.io/api/:endpoint
-      //Axios.post("https://5d3a5824fa091c00144708ed.mockapi.io/api/register",  {
-      this.fakePost('https://afake.url',{
+      Axios.post("https://react-blog-api.bahdcasts.com/api/auth/register", {
+      // Axios.post("https://5d3a5824fa091c00144708ed.mockapi.io/api/register",  {
+      // this.fakePost('https://afake.url',{
         name: this.name,
         email: this.email,
         password: this.password
       })
-        .then(({data}) => {
+        .then(({response}) => {
           this.loading = false;
-          localStorage.setItem('auth', JSON.stringify(data))
-          this.$root.auth = data;
+          localStorage.setItem('auth', JSON.stringify(response.data))
+          this.$root.auth = response.data;
 
           this.$router.push('home');
         })
-        .catch(({ data }) => {
+        .catch(( {response} ) => {
           this.loading = false;
           this.submitted = true;
-          this.errors = data;
+          this.errors = response.data;
         });
 
     }

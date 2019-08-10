@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <router-link class="navbar-brand" to="/">
         <img src="../assets/logo.png" width="30px" height="30px" alt />
-      </a>
+      </router-link>
 
       <button
         class="navbar-toggler"
@@ -29,10 +29,10 @@
 
          <li class="nav-item dropdown" v-if="authUser">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Hey {{ authUser.name }}
+              Hey {{ authUser.user.name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Logout</a>
+              <a class="dropdown-item" @click="logout" href="#">Logout</a>
             </div>
           </li>
 
@@ -49,6 +49,16 @@ export default {
   computed: {
     authUser() {
       return this.$root.auth;
+    }
+  },
+  methods:{
+    logout(){
+
+    localStorage.removeItem('auth');
+    
+    this.$root.auth = null;
+
+
     }
   }
 }
