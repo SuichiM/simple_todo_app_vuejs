@@ -43,6 +43,12 @@
 </template>
 <script>
 export default {
+  beforeRouteEnter(to, from, next) {
+    if (localStorage.getItem("auth")) {
+      return next({ path: "/" });
+    }
+    next();
+  },
     mounted() {
     console.log(this.$root);
   },
@@ -56,7 +62,11 @@ export default {
 
     localStorage.removeItem('auth');
     
+    this.$noty.success("Succeessfully logged out.");
+
     this.$root.auth = null;
+
+    this.$router.push('/login');
 
 
     }

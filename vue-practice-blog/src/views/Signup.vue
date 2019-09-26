@@ -44,6 +44,12 @@
 import Axios from 'axios';
 
 export default {
+  beforeRouteEnter(to, from, next) {
+    if (localStorage.getItem("auth")) {
+      return next({ path: "/" });
+    }
+    next();
+  },
   data() {
     return {
       name: "",
@@ -95,10 +101,16 @@ export default {
           localStorage.setItem('auth', JSON.stringify(response.data))
           this.$root.auth = response.data;
 
-          this.$router.push('home');
+          this.$noty.success("Successfully registered.");
+
+          this.$router.push('/');
         })
         .catch(( {response} ) => {
+
           this.loading = false;
+          
+          this.$noty.error("Oops ! Something went wrong.");
+
           this.submitted = true;
           this.errors = response.data;
         });

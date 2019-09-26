@@ -41,6 +41,12 @@
 import Axios from 'axios';
 
 export default {
+    beforeRouteEnter(to, from, next) {
+        if (localStorage.getItem("auth")) {
+            return next({ path: "/" });
+        }
+        next();
+    },
     data(){
         return {
             email:'',
@@ -62,11 +68,16 @@ export default {
             
             this.$root.auth = data.data;
             localStorage.setItem("auth", JSON.stringify(data.data));
-            this.$router.push("home");
+
+          this.$noty.success("Successfully logged in.");
+          this.$router.push("/");
+
             })
         .catch(({ response }) => {
-            this.login = false;
-
+            this.loading = false;
+    
+            this.$noty.error("Oops ! something went wrong.");
+            
             if (response.status === 401) {
                 this.errors = {
                 email: ["These credentials do not match our records."]
