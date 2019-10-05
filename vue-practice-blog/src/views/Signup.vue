@@ -42,6 +42,7 @@
 
 <script>
 import Axios from 'axios';
+import config from '@/config';
 
 export default {
   beforeRouteEnter(to, from, next) {
@@ -89,7 +90,7 @@ export default {
       this.loading = true;
 
       // http(s)://5d3a5824fa091c00144708ed.mockapi.io/api/:endpoint
-      Axios.post("https://react-blog-api.bahdcasts.com/api/auth/register", {
+      Axios.post(`${config.apiUrl}/auth/register`, {
       // Axios.post("https://5d3a5824fa091c00144708ed.mockapi.io/api/register",  {
       // this.fakePost('https://afake.url',{
         name: this.name,
