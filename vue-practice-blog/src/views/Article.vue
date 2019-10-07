@@ -1,5 +1,10 @@
 <template>
-  <div class="container my-5">
+
+  <div class="container my-2">
+    <div class="d-flex my-4 justify-content-center">
+      <button @click="backToHome" class="btn btn-warning">Back home</button>
+    </div>
+
     <div class="row">
       <div class="col-md-10 offset-md-1">
         
@@ -32,6 +37,10 @@
 import Axios from 'axios';
 import config from '@/config';
 export default {
+  props:{
+    id:     {default: null},
+    homeUrl:{default: null}
+  },
   mounted() {
     this.getArticle();
   },
@@ -39,14 +48,23 @@ export default {
     return {
       article: {},
       loading: true,
+      url: window.location.href
     }
   },
   methods: {
     getArticle() {
-      Axios.get(`${config.apiUrl}/article/${this.$route.params.id}`).then(response => {
+      Axios.get(`${config.apiUrl}/article/${this.id}`)
+      .then(response => {
         this.loading = false;
         this.article = response.data.data;
+      }).catch((err)=>{
+        this.loading = false;
+        this.$noty.error("Oops ! Something went wrong.");
+
       });
+    },
+    backToHome(){
+        this.$router.push({ path: '/', params: { urlToFetch: this.homeUrl } });
     }
   }
 }

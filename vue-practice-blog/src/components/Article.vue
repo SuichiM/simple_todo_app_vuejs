@@ -5,12 +5,12 @@
 
     <div class="card-body">
         <div class="my-3" v-html="article.content.substring(0, 200)"></div>
-        <router-link :to="`/article/${article.slug}`" class="btn btn-primary">Read more</router-link>
+        <router-link :to="{path:`/article/${article.slug}`, params:{ homeUrl:homeUrl} }" class="btn btn-primary">Read more</router-link>
     </div>
   </div>
 </template>
 <script>
 export default {
-    props:['article']
+    props:['article', 'homeUrl']
 }
 </script>

@@ -19,10 +19,12 @@ const router = new Router({
   },
   {
     path: '/',
-    component: Home
+    component: Home,
+    props: true
   }, {
     path: '/article/:id',
-    component: Article
+    component: Article,
+    props: true
   }]
 })
 
