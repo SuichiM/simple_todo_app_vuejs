@@ -42,13 +42,14 @@ export default {
         this.image = image;
     },
     createArticle() {
-        const form = new FormData();
-        form.append('file', this.image);
-        form.append('upload_preset', 'g5ziunzg');
-        form.append('api_key', '132255634713478');
-        
-        Axios.post('https://api.cloudinary.com/v1_1/bahdcoder/image/upload', form)
-            .then(res => console.log(res));
+      const form = new FormData();
+      
+      form.append('file', this.image);
+      form.append('upload_preset', process.env.VUE_APP_CLOUDINARY_PRESET);
+      form.append('api_key', process.env.VUE_APP_CLOUDINARY_API_KEY);
+      
+      Axios.post(process.env.VUE_APP_CLOUDINARY_URL, form)
+        .then(res => console.log(res));
     }
     }
 };
