@@ -1,4 +1,4 @@
-# vue-practice-shop
+# vuex
 
 ## Project setup
 ```

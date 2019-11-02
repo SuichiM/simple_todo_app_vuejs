@@ -1,32 +1,52 @@
 <template>
   <div id="app">
-    <Navvar/>
+    <CreateTodo />
 
-    <div class="container">
+    <ListTodos />
 
-      <router-view></router-view>
-
-    </div>
-        
+    <TodosCount />
   </div>
 </template>
 
 <script>
-import Navvar from "@/components/Navvar.vue";
+import ListTodos from './components/ListTodos.vue'
+import CreateTodo from './components/CreateTodo.vue'
+import TodosCount from './components/TodosCount.vue'
+
 export default {
   name: 'app',
   components: {
-    Navvar
+      ListTodos,
+      CreateTodo,
+      TodosCount
+  },
+  mounted() {
+      this.$store.dispatch('todos/getTodos')
   }
 }
 </script>
 
 <style>
-* {
-  font-family: 'Poppins', sans-serif;
-  border-radius: 0 !important;
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
-#body {
-    color: #2c3e50;
+
+input {
+    border: 2px solid black;
+    padding: 20px;
+    font-size: 22px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    font-size: 26px;
 }
 </style>
