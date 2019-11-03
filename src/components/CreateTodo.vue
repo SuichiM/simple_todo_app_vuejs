@@ -11,7 +11,7 @@
 
         methods: {
             saveTodo() {
-                this.$store.dispatch('todos/addTodo', this.todo)
+                this.$store.dispatch('todos/addTodo', {todo: this.todo})
             }
         }
     }
