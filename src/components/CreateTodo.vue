@@ -1,5 +1,10 @@
 <template>
-    <input v-model="todo" @keyup.enter="saveTodo" type="text" placeholder="Todo item ">
+    <div class="container text-center">
+        <a-form-item help="Enter to save">
+            <a-input v-model="todo" @keyup.enter="saveTodo" placeholder="Todo item ">
+            </a-input>
+        </a-form-item>
+    </div>
 </template>
 
 <script>
@@ -11,7 +16,8 @@
 
         methods: {
             saveTodo() {
-                this.$store.dispatch('todos/addTodo', {todo: this.todo})
+                this.$store.dispatch('todos/addTodo', {todo: this.todo});
+                this.todo=''
             }
         }
     }

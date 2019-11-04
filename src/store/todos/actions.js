@@ -6,13 +6,14 @@ export default {
     addTodo({ state, commit }, payload) {
         // make api request to store todo
         // commit todo to vuex store
+        payload['done'] = false;
+
         Axios.post(url, payload)
-            .then(() => {
-                commit('addTodo', payload)
+            .then((response) => {
+                commit('addTodo', response.data)
             })
     },
     editTodo({state, commit}, data){
-        console.log(data);
         Axios.put(url+`/${data.id}`, data)
         .then((response)=>{
             commit('editTodo', response.data)
@@ -20,7 +21,6 @@ export default {
 
     },
     deleteTodo({state, commit}, data){
-        console.log(data.id);
         Axios.delete(url+`/${data.id}`)
         .then(()=>{
             commit('removeTodo', data)
@@ -30,6 +30,12 @@ export default {
     getTodos({ commit }) {
         Axios.get(url).then(response => {
             commit('addTodos', response.data)
+        })
+    },
+    checkTodo({state, commit}, todo){
+        Axios.put(url+`/${todo.id}`, {...todo.done})
+        .then((response)=>{
+            commit('editTodo', response.data)
         })
     }
 }

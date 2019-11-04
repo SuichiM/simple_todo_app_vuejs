@@ -1,11 +1,25 @@
+<style scoped>
+    .xsmall{
+        font-size: .7rem
+    }
+</style>
 <template>
     <ul>
         <li class="row" v-for="(todoitem) in todos" :key="todoitem.id">
-            <div class="text-right col-6"> 
+            
+            <div class="text-right col-7"> 
                 <span  v-if="todoitem.id !== editing" >    {{ todoitem.todo }} </span>
-                <a-input v-else type="text" v-model="editingValue" @keyup.enter="modifyTodo" />    
+                <a-input v-else class="col-10" type="text" v-model="editingValue" @keyup.enter="modifyTodo" />    
+
+                <span class="text-muted xsmall">{{ new Date(todoitem.createdAt).toLocaleDateString() }}</span>
             </div>
-            <div class="col-6 text-center">
+            <div class="col-2">
+                <a-switch @change="markDone" :id="todoitem.id" :checked="todoitem.done">
+                    <a-icon type="check" slot="checkedChildren" />
+                    <a-icon type="close" slot="unCheckedChildren" />
+                </a-switch>
+            </div>
+            <div class="col-2 text-center">
                     
                     <input class="btn btn-sm " type="button" value="editar" @click="editTodo(todoitem)"/> 
                     
@@ -57,6 +71,10 @@
 
                 this.editing = null;
                 this.editingValue = null;
+            },
+            markDone(checked, event){
+                let mark = {id: event.srcElement.id, done: checked};
+                this.$store.dispatch('todos/editTodo', mark);
             }
         }
     }
