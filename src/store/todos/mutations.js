@@ -21,5 +21,8 @@ export default {
     },
     removeTodo(state, todo ={}){
         state.todos = state.todos.filter(el => el.id !== todo.id)
+    },
+    editTitle(state, title){
+        state.title = title
     }
 }

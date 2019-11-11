@@ -37,5 +37,8 @@ export default {
         .then((response)=>{
             commit('editTodo', response.data)
         })
+    },
+    editTitle({state, commit}, title){
+        commit('editTitle', title)
     }
 }

@@ -7,7 +7,7 @@
     <ul>
         <li class="row" v-for="(todoitem) in todos" :key="todoitem.id">
             
-            <div class="text-right col-7"> 
+            <div class="text-right col-6"> 
                 <span  v-if="todoitem.id !== editing" >    {{ todoitem.todo }} </span>
                 <a-input v-else class="col-10" type="text" v-model="editingValue" @keyup.enter="modifyTodo" />    
 
