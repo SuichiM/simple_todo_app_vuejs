@@ -15,7 +15,6 @@ export default {
     },
     addTodos(state, payload = []) {
         state.todos = [
-            ...state.todos,
             ...payload
         ]
     },

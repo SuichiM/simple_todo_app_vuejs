@@ -3,8 +3,9 @@
         <h3 class="card-title" > {{title}}  <a-button type="link"  icon="edit" @click="()=> {this.editing=true; this.editingTitle=this.title;}"/> </h3>
        
     </div>
-    <a-input v-else size="large" v-model="editingTitle" @keyup.enter="editTitle" @keyup.27="cancelEdit"/>
-
+    <div v-else class="col-md-8 ant-col-offset-4">
+    <a-input size="large" v-model="editingTitle" @keyup.enter="editTitle" @keyup.27="cancelEdit"/>
+    </div>
 </template>
 <script>
 export default {
