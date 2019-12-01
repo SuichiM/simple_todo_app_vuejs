@@ -3,6 +3,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import TodosRoutes from './views/todos/routes'
+import { nextTick } from 'q';
 
 const router = new Router({
     mode: 'history',
@@ -11,4 +12,14 @@ const router = new Router({
     ]
   })
   
+  router.beforeEach((to, from, next) => {
+    let app = to.path.split('/');
+    
+    if(app[1] === "")
+        app[1] = 'home';
+
+    // this.$store.dispatch('changeApp', app[1]);
+    next();
+  })
+
   export default router;

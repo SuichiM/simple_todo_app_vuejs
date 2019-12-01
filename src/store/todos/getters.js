@@ -1,11 +1,11 @@
 export default {
     todosCount(state) {
-        return state.todos.length
+        return Object.values(state.todoDetails).length || 0;
     },
     doneTodos(state){
-        return state.todos.filter(todo => todo.done ).length
+        return Object.values(state.todoDetails).filter(todo => todo.done ).length || 0
     },
     undoneTodos(state){
-        return state.todos.filter(todo => ! todo.done ).length
+        return Object.values(state.todoDetails).filter(todo => ! todo.done ).length || 0;
     }
 }

@@ -5,8 +5,9 @@ import mutations from './mutations'
 export default {
     namespaced: true,
     state: {
-        title: 'TODOs List',
-        todos: []
+        listTodos:[],
+        selectedTodo:{},
+        todoDetails: []
     },
     mutations,
     getters,

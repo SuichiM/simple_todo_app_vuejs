@@ -1,9 +1,15 @@
-import TodosIndex from './TodoIndex'
-
+import TodoDetails from './TodoDetails'
+import TodoIndex from   './TodoIndex'
 var routes = [
     {
         path:'/todos',
-        component: TodosIndex
+        component: TodoIndex,
+        props:true
+    },
+    {
+        path:'/todos/:id',
+        component: TodoDetails,
+        props:true
     }
 
 ]

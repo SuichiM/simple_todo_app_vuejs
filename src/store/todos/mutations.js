@@ -1,9 +1,11 @@
 export default {
+    addTodoLists(state, payload) {
+      
+        state.listTodos = payload;
+
+    },
     addTodo(state, payload) {
-        state.todos = [
-            ...state.todos,
-            payload
-        ]
+        state.todoDetails = payload
     },
     editTodo(state, todo={}){
       let idx = state.todos.findIndex( el => el.id === todo.id);
@@ -14,14 +16,15 @@ export default {
         ]
     },
     addTodos(state, payload = []) {
-        state.todos = [
-            ...payload
-        ]
+        state.todoDetails = payload
     },
     removeTodo(state, todo ={}){
         state.todos = state.todos.filter(el => el.id !== todo.id)
     },
-    editTitle(state, title){
-        state.title = title
+    editTitle(state, todo){
+        state.selectedTodo = todo
+    },
+    selectedTodo(state, todo){
+        state.selectedTodo = todo
     }
 }

@@ -14,12 +14,15 @@
 
       <a-menu-item key="2">
         <router-link to="/todos">
-        <a-icon type="ordered-list" /> Todos</router-link>
+          <a-icon type="ordered-list" /> Todos
+        </router-link>
       </a-menu-item>
       
       <a-menu-item key="3">
-        <a-icon type="desktop" />
-        <span>Option 2</span>
+       <router-link to="/accounts">
+          <a-icon type="desktop" /> Accounts
+        </router-link>
+
       </a-menu-item>
       
       <a-menu-item key="4">

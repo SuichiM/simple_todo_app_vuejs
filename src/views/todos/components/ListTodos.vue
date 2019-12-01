@@ -31,6 +31,8 @@
 
 
 <script>
+
+import { mapState } from 'vuex'
     export default {
         data:()=>{
             return {
@@ -38,10 +40,10 @@
                editing: null  
             }
         },
-        computed: {
-            todos() {
-                return this.$store.state.todos.todos
-            }
+        computed:{ 
+            ...mapState({
+                todos: state => state.todos.todoDetails
+            })
         },
         methods:{
             editTodo(todo){

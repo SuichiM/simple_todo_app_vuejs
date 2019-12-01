@@ -8,15 +8,22 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
     export default {
+        computed:{
+        ...mapState({
+           list: state => state.todos.selectedTodo
+        })
+        },
         data: () => ({
             todo: ''
         }),
 
         methods: {
             saveTodo() {
-                this.$store.dispatch('todos/addTodo', {todo: this.todo});
+                let new_todo = {todo : this.todo, list : this.list};
+                this.$store.dispatch('todos/addTodo', new_todo);
                 this.todo=''
             }
         }
