@@ -5,16 +5,16 @@
 </style>
 <template>
     <ul>
-        <li class="row" v-for="(todoitem) in todos" :key="todoitem.id">
+        <li class="row" v-for="(todoitem) in todos" :key="todoitem.objectId">
             
             <div class="text-right col-6"> 
-                <span  v-if="todoitem.id !== editing" >    {{ todoitem.todo }} </span>
-                <a-input v-else class="col-10" type="text" v-model="editingValue" @keyup.enter="modifyTodo" />    
+                <span  v-if="todoitem.objectId !== editing" >    {{ todoitem.todo }} </span>
+                <a-input v-else class="col-10 mr-1" type="text" v-model="editingValue" @keyup.enter="modifyTodo" />    
 
                 <span class="text-muted xsmall">{{ new Date(todoitem.createdAt).toLocaleDateString() }}</span>
             </div>
             <div class="col-2">
-                <a-switch @change="markDone" :id="todoitem.id" :checked="todoitem.done">
+                <a-switch @change="markDone" :id="todoitem.objectId" :checked="todoitem.done">
                     <a-icon type="check" slot="checkedChildren" />
                     <a-icon type="close" slot="unCheckedChildren" />
                 </a-switch>
@@ -47,7 +47,7 @@ import { mapState } from 'vuex'
         },
         methods:{
             editTodo(todo){
-                this.editing = todo.id;
+                this.editing = todo.objectId;
                 this.editingValue = todo.todo;
              },
             deleteTodo(todo){
@@ -65,8 +65,8 @@ import { mapState } from 'vuex'
             },
             modifyTodo(){
                 let todo = {
-                    id      : this.editing,
-                    todo    : this.editingValue
+                    objectId : this.editing,
+                    todo     : this.editingValue
                 };
 
                 this.$store.dispatch('todos/editTodo', todo);
@@ -75,7 +75,7 @@ import { mapState } from 'vuex'
                 this.editingValue = null;
             },
             markDone(checked, event){
-                let mark = {id: event.srcElement.id, done: checked};
+                let mark = {objectId: event.srcElement.id, done: checked};
                 this.$store.dispatch('todos/editTodo', mark);
             }
         }

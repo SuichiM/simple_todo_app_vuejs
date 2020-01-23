@@ -5,21 +5,21 @@ export default {
 
     },
     addTodo(state, payload) {
-        state.todoDetails = payload
+        state.todoDetails = [state.todoDetails,
+                             payload]
     },
     editTodo(state, todo={}){
-      let idx = state.todos.findIndex( el => el.id === todo.id);
-      state.todos[idx] = todo;
+      let idx = Object.values(state.todoDetails).findIndex( el => el.objectId === todo.objectId);
+      state.todoDetails[idx] = Object.assign(state.todoDetails[idx], todo);
       
-      state.todos = [
-          ...state.todos
-        ]
+      state.todoDetails = state.todoDetails;
+        
     },
     addTodos(state, payload = []) {
         state.todoDetails = payload
     },
     removeTodo(state, todo ={}){
-        state.todos = state.todos.filter(el => el.id !== todo.id)
+        state.todos = Object.values(state.todoDetails).filter(el => el.objectId !== todo.objectId)
     },
     editTitle(state, todo){
         state.selectedTodo = todo

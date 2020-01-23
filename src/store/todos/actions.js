@@ -26,24 +26,33 @@ export default {
 
         payload['list'] = { "__type": "Pointer", 
                             "className": "todo_list", 
-                            "objectId": payload['list'] };
+                            "objectId": payload['list'].objectId }; 
 
         apiClient.post('/todos', payload)
             .then((response) => {
-                commit('addTodo', response.data)
+                commit('addTodo', Object.assign({}, response.data, payload))
             })
     },
-    editTodo({state, commit}, data){
-        Axios.put(url+`/${data.id}`, data)
-        .then((response)=>{
-            commit('editTodo', response.data)
+    editTodo({state, commit}, todo){
+
+        apiClient.put(`/todos/${todo.objectId}`, todo)
+        .then((response) => {
+            commit('editTodo', todo)
+        })
+        .catch(function(err){
+            console.log(err)
+            this.$message.error('Oops! something went wrong');
         })
 
     },
     deleteTodo({state, commit}, data){
-        Axios.delete(url+`/${data.id}`)
-        .then(()=>{
+        apiClient.delete(`/todos/${data.objectId}`)
+        .then((response) => {
             commit('removeTodo', data)
+        })
+        .catch(function(err){
+            console.log(err)
+            this.$message.error('Oops! something went wrong');
         })
 
     },
@@ -92,8 +101,7 @@ export default {
         commit('selectedTodo', todo);
     },
     editTitle({state, commit}, todo){
-        console.log(todo);
-
+    
         apiClient.put(`/todo_list/${todo.objectId}`, todo)
         .then((response) => {
             commit('editTitle', todo)
