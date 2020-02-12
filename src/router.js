@@ -4,7 +4,7 @@ Vue.use(Router)
 
 
 import TodosRoutes from './views/todos/routes'
-import { nextTick } from 'q';
+//import { nextTick } from 'q';
 import myStore from './store';
 
 const router = new Router({

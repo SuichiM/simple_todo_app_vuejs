@@ -1,14 +1,17 @@
 FROM node:lts-alpine
-#USER node
-# RUN chmod 755 /usr/local/bin
-RUN npm install -g @vue/cli
-#ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
+
+ENV PORT 8080
+EXPOSE 8080
+
 WORKDIR /home/node/app
+
+RUN npm install --save -g @vue/cli
 
 COPY . .
 
 RUN npm install
+
+
 #ADD ./ /home/node/app
-EXPOSE 8080
 
 CMD ["npm", "run", "serve"]
