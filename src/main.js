@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Axios from 'axios'
+import moment from 'moment'
 
 import store from './store'
 import router from './router'
 import cache from './cache';
+import services from './services'
 
 Vue.config.productionTip = false
 
@@ -22,8 +24,10 @@ const apiClient = Axios.create({
   }
 });
 global.apiClient = apiClient;
+global.cache = cache
+global.services = services;
 
-global.cache = cache;
+global.moment = moment
 
 const qs = require('qs'); 
 global.qs = qs;

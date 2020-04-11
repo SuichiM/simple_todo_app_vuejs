@@ -1,9 +1,6 @@
-import Axios from 'axios'
-const url = 'https://5d3a5824fa091c00144708ed.mockapi.io/api/todos'
-
 export default {
     getTodosList({state, commit}){
-        let list = cache.get('todo_list');
+        let list = cache.getItem('todo_list');
         
         if (list)
             return commit('addTodoLists', list);
@@ -11,7 +8,7 @@ export default {
         apiClient.get('/todo_list')
         .then(function ({data}) {
             commit('addTodoLists', data.results);
-            cache.set('todo_list', data.results);
+            cache.setItem('todo_list', data.results);
           })
           .catch(function (error) {
             console.log(error);
@@ -63,7 +60,7 @@ export default {
     },
     getTodosByListID({commit}, listId){
 
-        let todos = cache.get(`todo_detail_${listId}`);
+        let todos = cache.getItem(`todo_detail_${listId}`);
         
         if (todos)
             return commit('addTodos', todos);
@@ -83,7 +80,7 @@ export default {
         apiClient.get(url)
         .then(({data}) => {
             commit('addTodos', data.results);
-            cache.set(`todo_detail_${listId}`, data.results);
+            cache.setItem(`todo_detail_${listId}`, data.results);
         })
         .catch((err)=>{
             console.log('errorRetrievingDetails', err);

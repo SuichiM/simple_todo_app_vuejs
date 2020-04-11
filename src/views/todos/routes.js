@@ -4,12 +4,14 @@ var routes = [
     {
         path:'/todos',
         component: TodoIndex,
-        props:true
+        props:true,
+        meta: { requiresAuth: true }
     },
     {
         path:'/todos/:id',
         component: TodoDetails,
-        props:true
+        props:true,
+        meta: { requiresAuth: true }
     }
 
 ]

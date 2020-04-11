@@ -6,6 +6,7 @@ import globalActions from './actions'
 Vue.use(Vuex)
 
 import todos from './todos'
+import user from './user'
 
 const store = new Vuex.Store({
     state:{
@@ -14,7 +15,8 @@ const store = new Vuex.Store({
     mutations: globalMutations,
     actions: globalActions,
     modules: {
-        todos
+        todos,
+        user
     }
 })
 

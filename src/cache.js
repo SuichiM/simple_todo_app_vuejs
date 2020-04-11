@@ -1,29 +1,26 @@
-const ttl = 1000*60*60*24;
-
 export default {
+    getItem:function(key){
+        let value = JSON.parse(localStorage.getItem(key));
 
-    get(key){
-        let item = JSON.parse(localStorage.getItem(key));
-       
-        if(!item)
-            return;
-        
-        if(item.createdAt + ttl > new Date() )
-            return;
-        
-        delete item.createdAt;
-        
-        return item;            
+        if (! value)
+            return null;
+
+        let expirationTime = moment( value['expires_at'] );
+
+        if( moment() > expirationTime )
+            return null;
+
+        delete value['created_at'];
+        delete value['expires_at'];
+        return value;
+
     },
+    setItem:function(key, value, ttl){
+        let expiration = ttl || (value && value.ttl) || 1024*60*60*24;
 
-    set(key, item){
-        let created = new Date();
+        value['created_at'] = moment();
+        value['expires_at'] = moment( value['created_at'] ).add(expiration, 'ms');
 
-        let newItem = {
-            ...item,
-            createdAt: created
-        }
-
-        localStorage.setItem(key, JSON.stringify(newItem))
+        localStorage.setItem(key, JSON.stringify(value));
     }
 }
